@@ -19,7 +19,7 @@ func generateWOL(plates map[int]map[string]string, output string) {
 		commands = append(commands,
 			"SHEET, ADD, REM,"+
 				plate["name"]+
-				","+plate["group"]+
+				","+plate["material"]+
 				","+plate["thickness"]+
 				","+"1"+
 				","+"DXF"+
