@@ -9,7 +9,7 @@ func main() {
 	var output = flag.String("output", "/output/output.wol", "Defines the path for the output")
 	flag.Parse()
 	files := getFiles(*mount, ".dxf")
-	plates := getPlatesDetails(files)
+	plates := getPlatesDetails(files, "-")
 	getPlatesDetailsTable(plates)
 	generateWOL(plates, *output)
 }

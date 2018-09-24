@@ -6,7 +6,7 @@ import (
 )
 
 /* Plates Management */
-func getPlatesDetails(files []string) (plates map[int]map[string]string) {
+func getPlatesDetails(files []string, divider string) (plates map[int]map[string]string) {
 
 	//Initialize the variables
 	plates = make(map[int]map[string]string)
@@ -18,17 +18,21 @@ func getPlatesDetails(files []string) (plates map[int]map[string]string) {
 		filename := strings.ToUpper(filepath.Base(path))
 		extension := strings.ToUpper(filepath.Ext(filename))
 
-		//Decode the name of the file to get the informations about the plate
-		decodedInformations := getDecodedDataFromFileName(filename, "-", extension)
+		//check if the plates provided are decodeble by checking if they contain the devider character in their filename
+		if strings.Contains(filename, divider) {
+			//Decode the name of the file to get the informations about the plate
+			decodedInformations := getDecodedDataFromFileName(filename, divider, extension)
 
-		//add the data to the holder
-		for key, value := range decodedInformations {
-			plates[id][key] = value
+			//add the data to the holder
+			for key, value := range decodedInformations {
+				plates[id][key] = value
+				//fmt.Printf("%#v\n", plates[id])
+			}
+			plates[id]["filename"] = filename
+			plates[id]["filepath"] = path
 			//fmt.Printf("%#v\n", plates[id])
 		}
-		plates[id]["filename"] = filename
-		plates[id]["filepath"] = path
-		//fmt.Printf("%#v\n", plates[id])
+
 	}
 
 	return plates
